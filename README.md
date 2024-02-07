@@ -5,6 +5,6 @@ This repository contains different benchmark tasks and datasets along with a min
 1. Duffing oscillator response analysis (DORA) prediction task:
 
     <p align="center">
-    <img src="https://github.com/maneesh51/TrajectoryLearning/blob/main/Vectorfield.png" width="400" height="400">
+    <img src="https://github.com/maneesh51/Benchmark-Tasks/blob/bb41fa278823815ca984b40db618be6f6e0459e3/DORA_3.png" width="400" height="400">
     </p>
 
