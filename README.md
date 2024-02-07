@@ -1,4 +1,4 @@
-# Datasets
+# Benchmark tasks and datasets
 
 This repository contains the following benchmark datasets along with a minimal code to generate, import and plot the same data.
 
