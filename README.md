@@ -11,4 +11,4 @@ The DORA task is to generate the response analysis of a forced Duffing oscillato
 </p>
 
 The training and testing data for the DORA task can be generated, loaded and plotted with the DORA.py and DORA.ipynb file. 
-Data can be loaded in the form of 2D matrix, whose dimensions are [3, T]. In the first dimension, 1st entry is q1, 2nd is q2 and 3rd is the frequency of the external forcing which remains constant over the entire time (T).
+Data can be loaded in the form of 2D matrix, whose dimensions are [3, T]. In the first dimension, 1st entry is q1, 2nd is q2 and 3rd is the frequency of the external forcing that remains constant over the entire time (T).
