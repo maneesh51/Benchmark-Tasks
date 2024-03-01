@@ -18,4 +18,4 @@ The training (DORA_Train.csv) and testing (DORA_Test.csv) data for the DORA task
 The training and testing data for the DORA task can also be generated, loaded and plotted with the DORA.py or DORA.ipynb files.
 
 ### 1.2 Description of data
-The Train and Test data files have 4 columns in total. The first two columns consist of time evolution of the Duffing oscillator's position and velocity given by: $qa(t)$ and $qb(t)$. 3rd column contains the time evolution of external periodic forcing and 4th column has it amplitude.
+The Train and Test data files have 4 columns in total. The first two columns consist of time evolution of the Duffing oscillator's position and velocity given by: $q1(t)$ and $q2(t)$. 3rd column contains the time evolution of external periodic forcing and 4th column has it amplitude.
