@@ -4,7 +4,7 @@ This repository contains different benchmark tasks and datasets along with a min
 
 ## 1. Duffing oscillator response analysis (DORA) prediction task:
 
-The DORA task is to generate the response analysis of a forced Duffing oscillator using a minimal training dataset. This task tests the generalization capabilities of the machine-learning model by extrapolating the system response in unseen parameter regimes i.e amplitude of external periodic forcing in this case. The best working model should be able to qualitatively capture the system response for instance, the exact number of cycles when the system is in a limit-cycle regime or chaotic trajectories for the amplitude values shifting the system in a chaotic regime by training the model only on a limited datasets.
+The DORA task is to generate the response analysis of a forced Duffing oscillator using a minimal training dataset. This task tests the generalization capabilities of the machine-learning model by extrapolating the system response in unseen parameter regimes i.e amplitude of external periodic forcing in this case. The best working model should be able to qualitatively capture the system response for instance, the exact number of cycles when the system is in a limit-cycle regime or chaotic trajectories for the amplitude values shifting the system in a chaotic regime by training the model only on limited datasets.
 
 <p align="center">
 <img src="https://github.com/maneesh51/Benchmark-Tasks/blob/bb41fa278823815ca984b40db618be6f6e0459e3/DORA_3.png">
@@ -22,7 +22,7 @@ The training and testing data for the DORA task can also be generated, loaded an
 The Train and Test data files have 5 columns in total. The first column represents the time, 2nd and 3rd columns consist of the time evolution of the Duffing oscillator's position and velocity given by: $q1(t)$ and $q2(t)$ respectively. 4th column contains the time evolution of external periodic forcing and 5th column has its amplitude. The train set contains data for two external forcing amplitudes, $f\in[0.46,0.49]$ and the test set consists for a total of five forcing amplitudes, $f\in[0.2,0.35,0.48,0.58,0.75]$. 
 
 ### 1.3 Evaluation of model accuracy
-The accuracy of the prediction model will depend on the extrapolation of system behavior outside the external forcing used for training. The system response characteristics for the external forcing is quantified in terms of amplitude and mean of the $q1^{2}(t)$, which can be obtained using a provided function $\texttt{Signal_Characteristic}$. Mean Squared Error (MSE) can be used as an accuracy quantifier to obtain the deviation of predicted system response characteristics to the original ones i.e:
+The accuracy of the prediction model will depend on the extrapolation of system behavior outside the external forcing used for training. The system response characteristics for the external forcing is quantified in terms of amplitude and mean of the $q1^{2}(t)$, which can be obtained using a provided function `Signal_Characteristic`. Mean Squared Error (MSE) can be used as an accuracy quantifier to obtain the deviation of predicted system response characteristics to the original ones i.e:
 
 a) Response Amplitude Error = MSE[ Amp(  $q1_{prediction}^{2}(t)$  ), Amp( $q1_{original}^{2}(t))$ ]
                   
