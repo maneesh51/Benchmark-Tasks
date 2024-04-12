@@ -14,7 +14,7 @@ The DORA task is to predict the response analysis of a forced Duffing oscillator
 The Train and Test data files have 5 columns in total. The first column represents the time, 2nd and 3rd columns consist of the time evolution of the Duffing oscillator's position and velocity given by: $q1(t)$ and $q2(t)$ respectively. 4th column contains the time evolution of external periodic forcing and 5th column has its amplitude. The train set contains data for two external forcing amplitudes, $f\in[0.46,0.49]$ and the test set consists for a total of five forcing amplitudes, $f\in[0.2,0.35,0.48,0.58,0.75]$. 
 
 ### 1.2 Data loading
-
+The training (`DORA_Train.csv`) and testing (`DORA_Test.csv`) data are provided in the repository that can be loaded with `PlotData.py` file. 
 
 ### 1.3 Model Evaluation
 The success of the prediction model will depend on the extrapolation of system behavior outside the external forcing used for training. The system response characteristics for the external forcing is quantified in terms of amplitude and mean of the $q1^{2}(t)$, which can be obtained using a provided function `Signal_Characteristic`. The prediction performance can be quantified in terms of average and maximum vibration amplitude Mean Squared Error (MSE) in the steady-state time ($t*=20s$):
@@ -28,7 +28,7 @@ The training (DORA_Train.csv) and testing (DORA_Test.csv) data for the DORA task
 
 ```python DORA_generator.py -time 250 -plots 1```
 
-The training and testing data for the DORA task can also be generated, loaded and plotted with the DORA.ipynb file. Alternatively, the training and testing data for the DORA task can be simply loaded and plotted with the ReadData.py file.
+The training and testing data for the DORA task can also be generated, loaded and plotted with the `DORA.ipynb` file. Alternatively, the training and testing data for the DORA task can be simply loaded and plotted with the ReadData.py file.
 
 
 
