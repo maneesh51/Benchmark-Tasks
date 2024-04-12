@@ -12,9 +12,7 @@ Created on Fri Feb  9 10:49:31 2024
 @author: Dr. Manish Yadav
 
 
-Educational implementation of a linear single-mass damped oscillator
-(mass-spring-damper system) with optional external harmonic forcing.
-
+Duffing Oscillator:
 d^2x/d^2t + c*dx/dt + k*x = f*sin(omega*t+phi)
 
 conversion into 1st-order ordinary differential equation (state-space representation)
@@ -78,30 +76,45 @@ def SolveDuffing(q0, t_eval, c, k, f, omega, phi, beta):
     # Plot(q[:, 0], q[:, 1], forcing) 
     return q, forcing
 
+#####Evaluation Metrics
+def Signal_SqAmp(Dat, Trans):
+    return np.max(Dat[Trans:]**2)
+
+def Signal_SqMean(Dat, Trans):
+    return np.mean(Dat[Trans:]**2)
+
+def Signal_Characteristic(Dat, Trans):
+    return np.array([[Signal_SqAmp(Dat, Trans)], [Signal_SqMean(Dat, Trans)]])
 
 #### Response Analysis   
-def ForcingRespose(q0, t_eval, c, k, f_steps, omega, phi, beta):
+def ForcingRespose(q0, t_eval, c, k, f_steps, omega, phi, beta, EvalTransients):
     # numerical time integration
     
     sol = solve_ivp(one_dof_oscillator, t_span=[t_eval[0], t_eval[-1]], y0=q0,\
                            t_eval=t_eval, args=(c, k, f_steps[0], omega, phi, beta))
     f_amp = np.repeat(f_steps[0], sol.t.shape[0])
     sols = sol.y; f_amps = f_amp; forcings = f_amp*np.cos(omega*t_eval+phi)
+    TS_Char = Signal_Characteristic(sol.y[0], EvalTransients)
     ####Setting Initial condition for next forcing
     y0 = sol.y[:,-1]
-    for i in range(1,len(f_steps)):
+    for i in trange(1,len(f_steps)):
         sol = solve_ivp(one_dof_oscillator, t_span=[t_eval[0], t_eval[-1]], y0=q0,\
                            t_eval=t_eval, args=(c, k, f_steps[i], omega, phi, beta))
         forcing = f_steps[i]*np.cos(omega*t_eval+phi)
         f_amp = np.repeat(f_steps[i], sol.t.shape[0])
         
+        #####Arranging time-series##########
         sols=np.append(sols, sol.y, axis=1)
         forcings=np.append(forcings, forcing)
         f_amps=np.append(f_amps, f_amp)
         
+        #####Characterizing time-series ####
+        TS_Char1=Signal_Characteristic(sol.y[0], EvalTransients)
+        TS_Char=np.append(TS_Char, TS_Char1, axis=1)
+        
         ####Setting Initial condition for next forcing
         y0 = sol.y[:,-1]
-    return sols, forcings, f_amps
+    return sols, forcings, f_amps, TS_Char
 
 def PhaseSpace_Plot(Q,f):
     fig, ax = plt.subplots(figsize=(5, 5), dpi=120)
@@ -114,7 +127,7 @@ def PhaseSpace_Plot(Q,f):
     plt.show()
     
 
-def Plot(X, ts, f_amps, forcings):
+def Plot(X, ts, f_amps, forcings, f_steps, TS_Char):
     
     fig, ax = plt.subplots(figsize=(10, 3), dpi=150)
     ax.plot(ts[::2], forcings[::2], lw=0.5, color='g')
@@ -156,6 +169,18 @@ def Plot(X, ts, f_amps, forcings):
     # plt.tight_layout()
     plt.show()
 
+    fig, ax = plt.subplots(figsize=(5,5), dpi=150)
+    plt.scatter(f_steps, TS_Char[0], marker='o',s=100,c='r')
+    plt.xlabel(r'forcing steps', fontsize=25); plt.ylabel(r'Max($q_{1}^{2}$)', fontsize=25)
+    ax.tick_params(labelsize=20)
+    plt.show()
+    
+    fig, ax = plt.subplots(figsize=(5,5), dpi=150) 
+    plt.scatter(f_steps, TS_Char[1], marker='D',s=100,c='b')
+    plt.xlabel(r'forcing steps', fontsize=25); plt.ylabel(r'Mean(${q_{1}^{2}}$)', fontsize=25)
+    ax.tick_params(labelsize=20)
+    plt.show()
+
 
 
 def GenerateData(Time, Plot_TF):
@@ -172,7 +197,7 @@ def GenerateData(Time, Plot_TF):
     
     T = Time; h=0.1
     t_eval = np.arange(start=0, stop=T, step=h)
-    
+    EvalTransients=500
     
     # numerical time integration
     # time integration interval
@@ -182,41 +207,44 @@ def GenerateData(Time, Plot_TF):
     solB = solve_ivp(one_dof_oscillator, t_span=[t_eval[0], t_eval[-1]], y0=q0,\
                           t_eval=t_eval, args=(c, k, fs[1], omega, phi, beta))
     
-    qa = solA.y.T; t = solA.t
-    forcingA = fs[0]*np.cos(omega*t+phi)
+    qa = solA.y.T; t_tr = solA.t
+    forcingA = fs[0]*np.cos(omega*t_tr+phi)
     
     qb = solB.y.T;
-    forcingB = fs[1]*np.cos(omega*t+phi)
+    forcingB = fs[1]*np.cos(omega*t_tr+phi)
     
     
     f_steps = [0.2, 0.35, 0.48, 0.58, 0.75]
     
-    sols, forcings, f_amps =ForcingRespose(q0, t_eval, c, k, f_steps, omega, phi, beta)
+    sols, forcings, f_amps, TS_Char =ForcingRespose(q0, t_eval, c, k, f_steps, omega, phi, beta, EvalTransients)
     T_evals = np.arange(start=0, stop=T*len(f_steps), step=h)
     
     if Plot_TF==1:
-        Plot(sols, T_evals, f_amps, forcings)
+        Plot(sols, T_evals, f_amps, forcings, f_steps, TS_Char)
         
         
     ###### Prepare Data
     ## Train
     Fs_a = np.tile(fs[0], qa.shape[0])
-    Tr_a = np.concatenate((qa.T, np.expand_dims(forcingA, axis=1).T), axis=0)
+    Tr_a = np.concatenate((np.expand_dims(t_tr,axis=1).T, qa.T), axis=0)
+    Tr_a = np.concatenate((Tr_a, np.expand_dims(forcingA, axis=1).T), axis=0)
     Tr_a = np.concatenate((Tr_a, np.expand_dims(Fs_a, axis=1).T), axis=0)
     
     Fs_b = np.tile(fs[1], qb.shape[0])
-    Tr_b = np.concatenate((qb.T, np.expand_dims(forcingB, axis=1).T), axis=0)
+    Tr_b = np.concatenate((np.expand_dims(t_tr,axis=1).T, qb.T), axis=0)
+    Tr_b = np.concatenate((Tr_b, np.expand_dims(forcingB, axis=1).T), axis=0)
     Tr_b = np.concatenate((Tr_b, np.expand_dims(Fs_b, axis=1).T), axis=0)
     
     Tr_Dat = np.concatenate((Tr_a, Tr_b), axis=1)
-    Tr_df = pd.DataFrame(Tr_Dat.T, columns=['q1(t)', 'q2(t)', 'f(t)', 'f_amplitude'])
+    Tr_df = pd.DataFrame(Tr_Dat.T, columns=['time', 'qa(t)', 'qb(t)', 'f(t)', 'f_amplitude'])
     
     ## Test
     Fs = np.repeat(f_steps, qa.shape[0])
-    Tst_Dat = np.concatenate((sols, np.expand_dims(forcings, axis=1).T), axis=0)
+    Tst_Dat = np.concatenate((np.expand_dims(T_evals, axis=1).T, sols), axis=0)
+    Tst_Dat = np.concatenate((Tst_Dat, np.expand_dims(forcings, axis=1).T), axis=0)
     Tst_Dat = np.concatenate((Tst_Dat, np.expand_dims(Fs, axis=1).T), axis=0)
-    Tst_df = pd.DataFrame(Tst_Dat.T, columns=['q1(t)', 'q2(t)', 'f(t)', 'f_amplitude']) 
-    
+    Tst_df = pd.DataFrame(Tst_Dat.T, columns=['time', 'qa(t)', 'qb(t)', 'f(t)', 'f_amplitude']) 
+        
     ####Save data
 
     Tr_df.to_csv('DORA_Train.csv', index=False)
