@@ -23,5 +23,7 @@ The Train and Test data files have 5 columns in total. The first column represen
 
 ### 1.3 Evaluation of model accuracy
 The accuracy of the prediction model will depend on the extrapolation of system behavior outside the external forcing used for training. The system response characteristics for the external forcing is quantified in terms of amplitude and mean of the $q1^{2}(t)$, which can be obtained using a provided function \texttt{Signal_Characteristic}. Mean Squared Error (MSE) can be used as an accuracy quantifier to obtain the deviation of predicted system response characteristics to the original ones i.e:
+
                   a) Response Amplitude Error = MSE(Amp(  $q1_{prediction}^{2}(t)$  ), Amp( $q1_{original}^{2}(t))$ )
+                  
                   b) Response Mean Error = MSE(Mean( $q1_{prediction}^{2}(t)$ ), Mean( $q1_{original}^{2}(t))$ )
