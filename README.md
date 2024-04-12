@@ -24,6 +24,6 @@ The Train and Test data files have 5 columns in total. The first column represen
 ### 1.3 Evaluation of model accuracy
 The success of the prediction model will depend on the extrapolation of system behavior outside the external forcing used for training. The system response characteristics for the external forcing is quantified in terms of amplitude and mean of the $q1^{2}(t)$, which can be obtained using a provided function `Signal_Characteristic`. The prediction performance can be quantified in terms of average and maximum vibration amplitude Mean Squared Error (MSE) in the steady-state time ($t^*=20s$):
 
-a) Response Amplitude Error = MSE[ Max(  $q1_{prediction}^{2}(t>t^*)$  ), Max( $q1_{original}^{2}(t>t^*))$ ]
+a) Response Amplitude Error = MSE[ Max(  $q1_{prediction}^{2}(t>t^{*})$  ), Max( $q1_{original}^{2}(t>t^{*}))$ ]
                   
 b) Response Mean Error = MSE[ Mean( $q1_{prediction}^{2}(t>t^*)$ ), Mean( $q1_{original}^{2}(t>t^*))$ ]
