@@ -197,7 +197,7 @@ def GenerateData(Time, Plot_TF):
     
     T = Time; h=0.1
     t_eval = np.arange(start=0, stop=T, step=h)
-    EvalTransients=500
+    EvalTransients=int(20/h)
     
     # numerical time integration
     # time integration interval
