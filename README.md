@@ -22,8 +22,8 @@ The training and testing data for the DORA task can also be generated, loaded an
 The Train and Test data files have 5 columns in total. The first column represents the time, 2nd and 3rd columns consist of the time evolution of the Duffing oscillator's position and velocity given by: $q1(t)$ and $q2(t)$ respectively. 4th column contains the time evolution of external periodic forcing and 5th column has its amplitude. The train set contains data for two external forcing amplitudes, $f\in[0.46,0.49]$ and the test set consists for a total of five forcing amplitudes, $f\in[0.2,0.35,0.48,0.58,0.75]$. 
 
 ### 1.3 Evaluation of model accuracy
-The success of the prediction model will depend on the extrapolation of system behavior outside the external forcing used for training. The system response characteristics for the external forcing is quantified in terms of amplitude and mean of the $q1^{2}(t)$, which can be obtained using a provided function `Signal_Characteristic`. Mean Squared Error (MSE) can be used as an accuracy quantifier to obtain the deviation of predicted system response characteristics relative to the original ones for each of the external forcing amplitudes, given by:
+The success of the prediction model will depend on the extrapolation of system behavior outside the external forcing used for training. The system response characteristics for the external forcing is quantified in terms of amplitude and mean of the $q1^{2}(t)$, which can be obtained using a provided function `Signal_Characteristic`. The prediction performance can be quantified in terms of average and maximum vibration amplitude Mean Squared Error (MSE) in the steady-state time ($t*=20s$):
 
-a) Response Amplitude Error = MSE[ Amp(  $q1_{prediction}^{2}(t)$  ), Amp( $q1_{original}^{2}(t))$ ]
+a) Response Amplitude Error = MSE[ Max(  $q1_{prediction}^{2}(t>t*)$  ), Max( $q1_{original}^{2}(t>t*))$ ]
                   
-b) Response Mean Error = MSE[ Mean( $q1_{prediction}^{2}(t)$ ), Mean( $q1_{original}^{2}(t))$ ]
+b) Response Mean Error = MSE[ Mean( $q1_{prediction}^{2}(t>t*)$ ), Mean( $q1_{original}^{2}(t>t*))$ ]
