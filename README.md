@@ -11,7 +11,8 @@ The DORA task is to predict the response analysis of a forced Duffing oscillator
 </p>
 
 ### 1.1 Description of data
-The Train and Test data files have 5 columns in total i.e $[t, q1(t), q2(t), f(t), f_amplitude]$. The first column represents the time, 2nd and 3rd columns consist of the time evolution of the Duffing oscillator's position and velocity given by: $q1(t)$ and $q2(t)$ respectively. 4th column contains the time evolution of external periodic forcing and 5th column has its amplitude that remains constant during the system evaluation time that is set to 250 by default.
+The Train and Test data files have 5 columns in total i.e $[t, q1(t), q2(t), f(t), f_{amplitude}]$.
+The first column represents the time ($t$), 2nd and 3rd columns consist of the time evolution of the Duffing oscillator's position and velocity given by: $q1(t)$ and $q2(t)$ respectively. 4th column contains the time evolution of external periodic forcing and 5th column has its amplitude that remains constant during the system evaluation time that is set to 250 by default.
 
 ### 1.2 Data loading
 The training (`DORA_Train.csv`) and testing (`DORA_Test.csv`) data are provided in the repository that can be loaded with the `ReadData.py` file. The train set contains data for two external forcing amplitudes, $f\in[0.46,0.49]$ and the test set consists of a total of five forcing amplitudes, $f\in[0.2,0.35,0.48,0.58,0.75]$ 
