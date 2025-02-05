@@ -32,6 +32,8 @@ The training (`DORA_Train.csv`) and testing (`DORA_Test.csv`) data for the DORA 
 The training and testing data for the DORA task can also be generated, loaded and plotted with the `DORA.ipynb` file. Alternatively, the training and testing data for the DORA task can be simply loaded and plotted with the ReadData.py file.
 
 
+### 1.5 Exmplar Solution
 
+An example solution of the DORA task is demonstrated in Yadav et. al 2025 (https://link.springer.com/article/10.1007/s11071-024-10720-w) where the authors used an uncommon machine learning framework of reservoir computing that can generalize the behavior of forced duffing oscillator using minimal samples and can predict its entire bifurcation diagram.
 
 
