@@ -36,4 +36,8 @@ The training and testing data for the DORA task can also be generated, loaded an
 
 An example solution of the DORA task is demonstrated in Yadav et. al 2025 (https://link.springer.com/article/10.1007/s11071-024-10720-w) where the authors used an uncommon machine learning framework of reservoir computing that can generalize the behavior of forced duffing oscillator using minimal samples and can predict its entire bifurcation diagram.
 
+### 1.6 Cite from Zenodo
+
+If you utilize this dataset or code in your research, please cite:
+Yadav, M., & Stender, M. (2025). Benchmark-Tasks: Duffing Oscillator Response Analysis (DORA) (v1.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.14851014
 
